@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D52BE7E8269CB85100630900 /* DownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52BE7E7269CB85100630900 /* DownloadModel.swift */; };
 		D54D38F426938DD600FBFE47 /* SwiftUI_File_ManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D38F326938DD600FBFE47 /* SwiftUI_File_ManagerApp.swift */; };
 		D54D38F626938DD600FBFE47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D38F526938DD600FBFE47 /* ContentView.swift */; };
 		D54D38F826938DD700FBFE47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54D38F726938DD700FBFE47 /* Assets.xcassets */; };
@@ -14,11 +15,12 @@
 		D54D390326938DFD00FBFE47 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D390226938DFD00FBFE47 /* ContentViewModel.swift */; };
 		D54D39052693CCB500FBFE47 /* DownloadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D39042693CCB500FBFE47 /* DownloadProgressView.swift */; };
 		D58D4776269B63B3005B273D /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = D58D4775269B63B3005B273D /* Zip */; };
-		D58D4778269B7268005B273D /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D4777269B7268005B273D /* FileView.swift */; };
+		D58D4778269B7268005B273D /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D4777269B7268005B273D /* FilesView.swift */; };
 		D58D477A269B7275005B273D /* FileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D4779269B7275005B273D /* FileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D52BE7E7269CB85100630900 /* DownloadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadModel.swift; sourceTree = "<group>"; };
 		D54D38F026938DD600FBFE47 /* SwiftUI File Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI File Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54D38F326938DD600FBFE47 /* SwiftUI_File_ManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_File_ManagerApp.swift; sourceTree = "<group>"; };
 		D54D38F526938DD600FBFE47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,7 +29,7 @@
 		D54D38FC26938DD700FBFE47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D54D390226938DFD00FBFE47 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		D54D39042693CCB500FBFE47 /* DownloadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgressView.swift; sourceTree = "<group>"; };
-		D58D4777269B7268005B273D /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
+		D58D4777269B7268005B273D /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		D58D4779269B7275005B273D /* FileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,10 +66,11 @@
 			children = (
 				D54D38F326938DD600FBFE47 /* SwiftUI_File_ManagerApp.swift */,
 				D54D38F526938DD600FBFE47 /* ContentView.swift */,
-				D58D4777269B7268005B273D /* FileView.swift */,
-				D58D4779269B7275005B273D /* FileViewModel.swift */,
 				D54D390226938DFD00FBFE47 /* ContentViewModel.swift */,
+				D58D4777269B7268005B273D /* FilesView.swift */,
+				D58D4779269B7275005B273D /* FileViewModel.swift */,
 				D54D39042693CCB500FBFE47 /* DownloadProgressView.swift */,
+				D52BE7E7269CB85100630900 /* DownloadModel.swift */,
 				D54D38F726938DD700FBFE47 /* Assets.xcassets */,
 				D54D38FC26938DD700FBFE47 /* Info.plist */,
 				D54D38F926938DD700FBFE47 /* Preview Content */,
@@ -159,9 +162,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54D38F626938DD600FBFE47 /* ContentView.swift in Sources */,
+				D52BE7E8269CB85100630900 /* DownloadModel.swift in Sources */,
 				D54D39052693CCB500FBFE47 /* DownloadProgressView.swift in Sources */,
 				D54D38F426938DD600FBFE47 /* SwiftUI_File_ManagerApp.swift in Sources */,
-				D58D4778269B7268005B273D /* FileView.swift in Sources */,
+				D58D4778269B7268005B273D /* FilesView.swift in Sources */,
 				D58D477A269B7275005B273D /* FileViewModel.swift in Sources */,
 				D54D390326938DFD00FBFE47 /* ContentViewModel.swift in Sources */,
 			);

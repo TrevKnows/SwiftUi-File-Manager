@@ -18,12 +18,11 @@ struct ContentView: View {
         
         VStack{
             Spacer()
+            
             Button("Make Directory") {
                 model.makeFileDirectory()
             }
             .padding()
-            
-            
             
             Button("Create .py File") {
                 model.createNewTextFile()
@@ -92,7 +91,7 @@ struct ContentView: View {
         .onAppear(){
             model.startup()
             model.test()
-            model.createMobileDirectory()
+           // model.createMobileDirectory()
         }
         
         

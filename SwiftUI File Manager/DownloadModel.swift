@@ -1,108 +1,35 @@
 //
-//  ContentViewModel.swift
+//  DownloadModel.swift
 //  SwiftUI File Manager
 //
-//  Created by Trevor Beaton on 7/5/21.
+//  Created by Trevor Beaton on 7/12/21.
 //
 
 import SwiftUI
 import Zip
 
-
-class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
+class DownloadViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
     
     
     
     let directoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let cachesPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
     
-    // For Downloads
-    @Published var downloadURL: URL!
-    
-    // Progress...
-    @Published var downloadProgress: CGFloat = 0
     
     // Alert
     @Published var alertMsg = ""
     @Published var showAlert = false
     
-    // Show Progress View
-    @Published var showDownloadProgress = false
-    
-    @Published var textRelay = ""
-    
     // Saving Download task reference for cancelling...
     @Published var downloadTaskSession: URLSessionDownloadTask!
     
-
-    
-    func readContents() {
-        
-        let path = Bundle.main.resourcePath!
-        
-        do {
-            let items = try FileManager.default.contentsOfDirectory(atPath: path)
-            
-            for item in items {
-                print("Found \(item)")
-            }
-        } catch {
-            // failed to read directory – bad permissions, perhaps?
-        }
-    }
-    
-    
-    
-    // Cancel Task
-    func cancelTask() {
-        
-    }
-    
-    
-    func createMobileDirectory() {
-        
-        // Give directory head string location
-        let stringURL = directoryPath.absoluteString
-        
-        do {
-            try FileManager.default.createDirectory(at: directoryPath,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-            
-            
-            // Holds a list of URL
-            let contents = try FileManager.default.contentsOfDirectory(at: directoryPath,
-                                                                       includingPropertiesForKeys: nil,
-                                                                       options: [.skipsHiddenFiles])
-            
-            //  try FileManager.default.contents(atPath: directoryURL.absoluteString)
-            
-            //   let attributes =
-            try FileManager.default.attributesOfItem(atPath: directoryPath.path)
-            
-            //     let creationDate = attributes[.creationDate]
-            
-            
-            for file in contents {
-                // textRelay.appending(file.absoluteString)
-                //print("File Found: \(file.absoluteString)")
-                print("Last Path Component: \(file.lastPathComponent)")
-                let newFile = ContentFile(title: file.lastPathComponent)
-                //   contentModel.fileArray.append(newFile)
-            }
-            
-        }
-        catch {
-            print("Error: \(error)")
-        }
-        
-        textRelay = stringURL
-        
-    }
-    
+    // Show Progress View
+    @Published var downloadProgress: CGFloat = 0
+    @Published var showDownloadProgress = false
     
     
     // MARK:- Download
-    func startDownload(urlString: String){
+    func startDownload(urlString: String) {
         
         // Check for valid URL
         guard let validURL = URL(string: urlString) else {
@@ -120,38 +47,15 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
         downloadTaskSession.resume()
     }
     
-    // Report Error Function...
-    func reportError(error: String){
-        alertMsg = error
-        showAlert.toggle()
-    }
-    
-    
-    func startup(){
-        let manager = FileManager.default
-        
-        guard let url = manager.urls(
-                for: .documentDirectory,
-                in: .userDomainMask).first else {return}
-        
-        print("Directory Path: \(directoryPath.path)")
-    }
-    
     func makeFileDirectory() {
         // Creating a File Manager Object
-        let manager = FileManager.default
-        
-        // Creating a path to make a document directory path
-        guard let url = manager.urls(
-                for: .documentDirectory,
-                in: .userDomainMask).first else {return}
-        print(url.path)
+       
         // Creating a folder
-        let pyleapProjectFolderURL = url.appendingPathComponent("PyLeap Folder0")
+        let pyleapProjectFolderURL = directoryPath.appendingPathComponent("PyLeap Project Folder")
         
         do {
             
-            try manager.createDirectory(at: pyleapProjectFolderURL,
+            try FileManager.default.createDirectory(at: pyleapProjectFolderURL,
                                         withIntermediateDirectories: true,
                                         attributes: [:])
         } catch {
@@ -159,12 +63,9 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
         }
     }
     
-    
-    
-    
-    func test() {
+    func unzipProjectFile() {
         print("Test Func called")
-        let CPZipName = directoryPath.appendingPathComponent("CP2.zip")
+        let CPZipName = directoryPath.appendingPathComponent("RainbowBundle.zip")
         
         let pyleapProjectFile = directoryPath.appendingPathComponent("PyLeap Folder")
         
@@ -193,12 +94,13 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
                         try FileManager.default.removeItem(at: CPZipName)
                         
                     } catch {
-                        print("Error: \(error)")            
+                        print("Error: \(error)")
                     }
                 }
             }.resume()
         }
     }
+    
     
     func createNewTextFile() {
         
@@ -233,9 +135,9 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
                 for: .documentDirectory,
                 in: .userDomainMask).first else {return}
         
-        let newFolderURL = url.appendingPathComponent("PyLeap Folder")
         
-        let textFile = newFolderURL.appendingPathComponent("testLog.py")
+        
+        let textFile = directoryPath.appendingPathComponent("RainbowBundle")
         
         if manager.fileExists(atPath: textFile.path) {
             print("this is a thing on a disk")
@@ -251,31 +153,9 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
     }
     
     
-    func deleteExistingFolder() {
-        
-        let manager = FileManager.default
-        
-        guard let url = manager.urls(
-                for: .documentDirectory,
-                in: .userDomainMask).first else {return}
-        
-        let newFolderURL = url.appendingPathComponent("New_Folder")
-        
-        if manager.fileExists(atPath: newFolderURL.path) {
-            
-            do {
-                try manager.removeItem(at: newFolderURL)
-                
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    
     /// Tells the delegate that a download task has finished downloading.
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print(location)
+        print("Download Location: \(location)")
         
         guard let url = downloadTask.originalRequest?.url else {
             self.reportError(error: "An error has occurred...")
@@ -285,7 +165,7 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
         
         
         // Creating a destination for storing files with a destination URL
-        let destinationURL = directoryPath.appendingPathComponent(url.lastPathComponent)
+        let destinationURL = cachesPath.appendingPathComponent(url.lastPathComponent)
         
         //if that file already exists, replace it.
         
@@ -297,8 +177,8 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
             try FileManager.default.copyItem(at: location, to: destinationURL)
             
             // If Success
-            print("Success")
-            readContents()
+            print("Successful Download")
+            
             // Closing Progress View
             DispatchQueue.main.async {
                 withAnimation{self.showDownloadProgress = false}
@@ -310,6 +190,26 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
             self.reportError(error: "Try again later")
         }
         
+    }
+    
+    func startup(){
+        
+        if let enumerator =
+            FileManager.default.enumerator(atPath: directoryPath.path)
+        {
+            for case let path as String in enumerator {
+                // Skip entries with '_' prefix, for example
+                if path.hasPrefix("_") {
+                    
+                    print("Path : \(path)")
+                    enumerator.skipDescendants()
+                    
+                }
+            }
+        }
+        
+        
+        print("Directory Path: \(directoryPath.path)")
     }
     
     /// Periodically informs the delegate about the download’s progress - Used for progress UI
@@ -325,7 +225,14 @@ class ContentViewModel: NSObject, ObservableObject, URLSessionDownloadDelegate {
         }
     }
     
+    // Report Error Function...
+    func reportError(error: String){
+        alertMsg = error
+        showAlert.toggle()
+    }
+   
+    
+    
+    
     
 }
-
-
